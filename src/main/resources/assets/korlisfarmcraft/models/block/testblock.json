@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "korlisfood:block/testblock"
+    "all": "korlisfarmcraft:block/testblock"
   }
 }

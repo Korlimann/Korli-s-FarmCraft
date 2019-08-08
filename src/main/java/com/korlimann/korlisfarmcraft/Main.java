@@ -1,10 +1,10 @@
-package com.korlimann.korlisfood;
+package com.korlimann.korlisfarmcraft;
 
-import com.korlimann.korlisfood.blocks.ModBlocks;
-import com.korlimann.korlisfood.blocks.TestBlock;
-import com.korlimann.korlisfood.setup.ClientProxy;
-import com.korlimann.korlisfood.setup.IProxy;
-import com.korlimann.korlisfood.setup.ServerProxy;
+import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
+import com.korlimann.korlisfarmcraft.blocks.TestBlock;
+import com.korlimann.korlisfarmcraft.setup.ClientProxy;
+import com.korlimann.korlisfarmcraft.setup.IProxy;
+import com.korlimann.korlisfarmcraft.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("korlisfood")
+@Mod("korlisfarmcraft")
 public class Main {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
