@@ -1,4 +1,4 @@
-package com.korlimann.korlisfood.setup;
+package com.korlimann.korlisfarmcraft.setup;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;

@@ -1,6 +1,6 @@
-package com.korlimann.korlisfood.setup;
+package com.korlimann.korlisfarmcraft.setup;
 
-import com.korlimann.korlisfood.blocks.ModBlocks;
+import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

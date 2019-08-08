@@ -1,4 +1,4 @@
-package com.korlimann.korlisfood.blocks;
+package com.korlimann.korlisfarmcraft.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
