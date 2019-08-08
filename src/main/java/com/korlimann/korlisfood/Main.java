@@ -4,6 +4,7 @@ import com.korlimann.korlisfood.blocks.ModBlocks;
 import com.korlimann.korlisfood.blocks.TestBlock;
 import com.korlimann.korlisfood.setup.ClientProxy;
 import com.korlimann.korlisfood.setup.IProxy;
+import com.korlimann.korlisfood.setup.ModSetup;
 import com.korlimann.korlisfood.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -32,7 +33,9 @@ public class Main {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-        proxy.getClientWorld();
+        //proxy.getClientWorld();
+        ModSetup.init();
+        proxy.init();
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -46,7 +49,8 @@ public class Main {
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            event.getRegistry().register(new BlockItem(ModBlocks.TESTBLOCK, new Item.Properties()).setRegistryName("testblock"));
+            Item.Properties properties = new Item.Properties().group(ModSetup.itemGroup);
+            event.getRegistry().register(new BlockItem(ModBlocks.TESTBLOCK, properties).setRegistryName("testblock"));
         }
     }
 }
