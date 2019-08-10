@@ -3,9 +3,10 @@
   "itemGroup.KFC" : "KFC",
 
 
+  "_comment": "Blocks",
+  "block.korlisfarmcraft.testblock": "Salt Ore",
 
-  "block.korlisfarmcraft.testblock": "Salt Ore"
-
-
+  "_comment": "Items",
+  "item.korlisfarmcraft.sickle": "Sickle"
 
 }

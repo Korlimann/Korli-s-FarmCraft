@@ -3,7 +3,7 @@ package com.korlimann.korlisfarmcraft;
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 import com.korlimann.korlisfarmcraft.blocks.TestBlock;
-import com.korlimann.korlisfarmcraft.items.TestItem;
+import com.korlimann.korlisfarmcraft.items.Sickle;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
@@ -55,7 +55,7 @@ public class Main {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.TESTBLOCK, properties).setRegistryName("testblock"));
-            event.getRegistry().register(new TestItem());
+            event.getRegistry().register(new Sickle());
         }
     }
 }
