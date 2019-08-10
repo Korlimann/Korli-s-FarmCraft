@@ -3,6 +3,7 @@ package com.korlimann.korlisfarmcraft;
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 import com.korlimann.korlisfarmcraft.blocks.TestBlock;
+import com.korlimann.korlisfarmcraft.items.TestItem;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
@@ -25,6 +26,8 @@ public class Main {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
+    public static ModSetup setup = new ModSetup();
+
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -35,7 +38,7 @@ public class Main {
 
     private void setup(final FMLCommonSetupEvent event) {
         //proxy.getClientWorld();
-        ModSetup.init();
+        setup.init();
         proxy.init();
     }
 
@@ -50,8 +53,9 @@ public class Main {
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            Item.Properties properties = new Item.Properties().group(ModSetup.itemGroup);
+            Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.TESTBLOCK, properties).setRegistryName("testblock"));
+            event.getRegistry().register(new TestItem());
         }
     }
 }
