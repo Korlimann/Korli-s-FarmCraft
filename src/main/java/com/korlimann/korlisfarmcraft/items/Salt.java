@@ -3,12 +3,12 @@ package com.korlimann.korlisfarmcraft.items;
 import com.korlimann.korlisfarmcraft.Main;
 import net.minecraft.item.Item;
 
-public class TestItem extends Item {
+public class Salt extends Item{
 
-    public TestItem() {
+    public Salt() {
         super(new Item.Properties()
-                .maxStackSize(1)
+                .maxStackSize(64)
                 .group(Main.setup.itemGroup));
-        setRegistryName("testitem");
+        setRegistryName("salt");
     }
 }

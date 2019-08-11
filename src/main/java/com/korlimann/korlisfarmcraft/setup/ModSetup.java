@@ -9,7 +9,7 @@ public class ModSetup {
     public static ItemGroup itemGroup = new ItemGroup("KFC") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModBlocks.TESTBLOCK);
+            return new ItemStack(ModBlocks.SALT_ORE);
         }
     };
 
