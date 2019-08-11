@@ -2,7 +2,7 @@ package com.korlimann.korlisfarmcraft;
 
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
-import com.korlimann.korlisfarmcraft.blocks.TestBlock;
+import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.items.TestItem;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
@@ -48,13 +48,13 @@ public class Main {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
-            event.getRegistry().register(new TestBlock());
+            event.getRegistry().register(new SaltOre());
         }
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
-            event.getRegistry().register(new BlockItem(ModBlocks.TESTBLOCK, properties).setRegistryName("testblock"));
+            event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new TestItem());
         }
     }

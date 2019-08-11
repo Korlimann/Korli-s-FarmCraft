@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "korlisfarmcraft:block/testblock"
+    "all": "korlisfarmcraft:block/salt_ore"
   }
 }
