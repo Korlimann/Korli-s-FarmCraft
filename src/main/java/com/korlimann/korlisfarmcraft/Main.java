@@ -3,13 +3,11 @@ package com.korlimann.korlisfarmcraft;
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
-import com.korlimann.korlisfarmcraft.blocks.TestBlock;
 import com.korlimann.korlisfarmcraft.items.Sickle;
 import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.config.Config;
 import com.korlimann.korlisfarmcraft.config.OreGenConfig;
 import com.korlimann.korlisfarmcraft.items.Salt;
-import com.korlimann.korlisfarmcraft.items.TestItem;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
@@ -69,7 +67,6 @@ public class Main {
           
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
-            event.getRegistry().register(new TestItem());
             event.getRegistry().register(new Salt());
         }
     }
