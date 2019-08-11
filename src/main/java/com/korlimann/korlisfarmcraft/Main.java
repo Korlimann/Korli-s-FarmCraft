@@ -29,7 +29,7 @@ public class Main {
     public static ModSetup setup = new ModSetup();
 
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public Main() {
         // Register the setup method for modloading
