@@ -1,11 +1,12 @@
 {
-
+  "_comment": "Creative Tabs",
   "itemGroup.KFC" : "KFC",
 
 
+  "_comment": "Blocks",
+  "block.korlisfarmcraft.salt_ore": "Salt Ore",
 
-  "block.korlisfarmcraft.testblock": "Salt Ore"
-
-
+  "_comment": "Items",
+  "item.korlisfarmcraft.salt": "Salt"
 
 }
