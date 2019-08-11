@@ -1,6 +1,6 @@
 package com.korlimann.korlisfarmcraft.setup;
 
-import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
+import com.korlimann.korlisfarmcraft.init.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

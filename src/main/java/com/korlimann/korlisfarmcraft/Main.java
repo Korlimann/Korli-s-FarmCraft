@@ -1,7 +1,7 @@
 package com.korlimann.korlisfarmcraft;
 
 
-import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
+import com.korlimann.korlisfarmcraft.init.ModBlocks;
 import com.korlimann.korlisfarmcraft.blocks.TestBlock;
 import com.korlimann.korlisfarmcraft.items.TestItem;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
