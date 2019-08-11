@@ -3,6 +3,7 @@ package com.korlimann.korlisfarmcraft;
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 import com.korlimann.korlisfarmcraft.blocks.SaltOre;
+import com.korlimann.korlisfarmcraft.items.Salt;
 import com.korlimann.korlisfarmcraft.items.TestItem;
 import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
@@ -56,6 +57,7 @@ public class Main {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new TestItem());
+            event.getRegistry().register(new Salt());
         }
     }
 }
