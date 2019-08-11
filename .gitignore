@@ -18,7 +18,6 @@ build
 eclipse
 run
 saves/
-config/
 options.txt
 usercache.json
 usernamecache.json
