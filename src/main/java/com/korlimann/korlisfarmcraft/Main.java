@@ -2,6 +2,9 @@ package com.korlimann.korlisfarmcraft;
 
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
+
+import com.korlimann.korlisfarmcraft.blocks.TestBlock;
+import com.korlimann.korlisfarmcraft.items.Sickle;
 import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.config.Config;
 import com.korlimann.korlisfarmcraft.config.OreGenConfig;
@@ -63,6 +66,8 @@ public class Main {
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
+          
+            event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new TestItem());
             event.getRegistry().register(new Salt());
