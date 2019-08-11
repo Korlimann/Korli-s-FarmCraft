@@ -1,4 +1,4 @@
-package com.korlimann.korlisfarmcraft.items;
+package com.korlimann.korlisfarmcraft.items.scythe;
 
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
 import net.minecraft.block.BlockState;
@@ -12,7 +12,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Scythe extends HoeItem {
+public class DiamondScythe extends HoeItem {
 
     private static final int minX = -1;
     private static final int maxX = 1;
@@ -20,11 +20,11 @@ public class Scythe extends HoeItem {
     private static final int minZ = -1;
     private static final int maxZ = 1;
 
-    public Scythe() {
+    public DiamondScythe() {
         super(new IItemTier() {
             @Override
             public int getMaxUses() {
-                return 512;
+                return 1024;
             }
 
             @Override
@@ -52,7 +52,7 @@ public class Scythe extends HoeItem {
                 return null;
             }
         }, 2.0f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
-        setRegistryName("scythe");
+        setRegistryName("diamond_scythe");
     }
 
     @Override

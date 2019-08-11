@@ -3,7 +3,12 @@ package com.korlimann.korlisfarmcraft;
 
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
-import com.korlimann.korlisfarmcraft.items.Sickle;
+import com.korlimann.korlisfarmcraft.items.scythe.DiamondScythe;
+import com.korlimann.korlisfarmcraft.items.scythe.IronScythe;
+import com.korlimann.korlisfarmcraft.items.scythe.StoneScythe;
+import com.korlimann.korlisfarmcraft.items.sickle.DiamondSickle;
+import com.korlimann.korlisfarmcraft.items.sickle.IronSickle;
+import com.korlimann.korlisfarmcraft.items.sickle.StoneSickle;
 import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.config.Config;
 import com.korlimann.korlisfarmcraft.config.OreGenConfig;
@@ -65,7 +70,12 @@ public class Main {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
           
-            event.getRegistry().register(new Sickle());
+            event.getRegistry().register(new StoneSickle());
+            event.getRegistry().register(new StoneScythe());
+            event.getRegistry().register(new IronSickle());
+            event.getRegistry().register(new IronScythe());
+            event.getRegistry().register(new DiamondSickle());
+            event.getRegistry().register(new DiamondScythe());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new Salt());
         }

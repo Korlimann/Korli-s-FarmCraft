@@ -1,4 +1,4 @@
-package com.korlimann.korlisfarmcraft.items;
+package com.korlimann.korlisfarmcraft.items.sickle;
 
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
 import net.minecraft.block.BlockState;
@@ -11,13 +11,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Sickle extends HoeItem {
+public class DiamondSickle extends HoeItem {
 
-    public Sickle() {
+    public DiamondSickle() {
         super(new IItemTier() {
             @Override
             public int getMaxUses() {
-                return 256;
+                return 1024;
             }
 
             @Override
@@ -45,7 +45,7 @@ public class Sickle extends HoeItem {
                 return null;
             }
         }, 2.0f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
-        setRegistryName("sickle");
+        setRegistryName("diamond_sickle");
     }
 
     @Override
