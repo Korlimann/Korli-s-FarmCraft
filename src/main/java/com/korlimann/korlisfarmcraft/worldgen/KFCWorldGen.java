@@ -2,17 +2,14 @@ package com.korlimann.korlisfarmcraft.worldgen;
 
 import java.util.Random;
 
-import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruitLeaves;
 import com.korlimann.korlisfarmcraft.init.ModBlocks;
 import com.korlimann.korlisfarmcraft.util.RngHelper;
 
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.AbstractChunkProvider;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.WorldGenTrees;
@@ -32,7 +29,7 @@ public class KFCWorldGen implements IWorldGenerator
         fruit_tree_avocado = new WorldGenFruitTree(true, 5, ModBlocks.AVOCADO_BLOCK);
     }
 
-    public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
+    public void generate(Random random, int chunkX, int chunkZ, World world, ChunkGenerator chunkGenerator, AbstractChunkProvider chunkProvider)
     {
         switch(world.dimension.getDimension())
         {
@@ -72,7 +69,7 @@ public class KFCWorldGen implements IWorldGenerator
                 int y = minHeight + rand.nextInt(heightDiff);
                 int z = chunkZ * 16 + rand.nextInt(16);
 
-                gen.generate(world, rand, new BlockPos(x, y, z));
+                gen.place(world, SMTH WEIRD GOES HERE, rand, new BlockPos(x, y, z));
             }
         }
     }
@@ -93,7 +90,7 @@ public class KFCWorldGen implements IWorldGenerator
                 int y = minHeight + rand.nextInt(heightDiff);
                 int z = 2+ chunkZ * 16 + rand.nextInt(8);
 
-                gen.generate(world, rand, new BlockPos(x, y, z));
+                gen.place(world, SMTH WEIRD GOES HERE, rand, new BlockPos(x, y, z));
 
             }}
     }
@@ -113,7 +110,7 @@ public class KFCWorldGen implements IWorldGenerator
                 int y = minHeight + rand.nextInt(heightDiff);
                 int z = 2+ chunkZ * 16 + rand.nextInt(8);
 
-                gen.generate(world, rand, new BlockPos(x, y, z));
+                gen.place(world, SMTH WEIRD GOES HERE, rand, new BlockPos(x, y, z));
 
             }}
     }
@@ -131,14 +128,8 @@ public class KFCWorldGen implements IWorldGenerator
                 int y = maxHeight;
                 int z = 2 + chunkZ * 16 + rand.nextInt(8);
 
-                gen.generate(world, rand, new BlockPos(x, y, z));
+                gen.place(world, SMTH WEIRD GOES HERE, rand, new BlockPos(x, y, z));
             }
         }
-    }
-
-
-    @Override
-    public void generate(Random random, int i, int i1, World world, ChunkGenerator chunkGenerator, AbstractChunkProvider abstractChunkProvider) {
-
     }
 }

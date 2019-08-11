@@ -8,12 +8,9 @@ import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruit;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.LogBlock;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -21,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 
 public class WorldGenFruitTree extends Feature {
 
