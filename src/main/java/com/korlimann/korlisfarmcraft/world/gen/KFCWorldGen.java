@@ -1,4 +1,4 @@
-package com.korlimann.korlisfarmcraft.worldgen;
+package com.korlimann.korlisfarmcraft.world.gen;
 
 import java.util.Random;
 

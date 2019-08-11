@@ -2,8 +2,7 @@ package com.korlimann.korlisfarmcraft.blocks;
 
 import java.util.Random;
 
-import com.korlimann.korlisfarmcraft.Main;
-import com.korlimann.korlisfarmcraft.worldgen.WorldGenFruitTree;
+import com.korlimann.korlisfarmcraft.world.gen.WorldGenFruitTree;
 import com.korlimann.korlisfarmcraft.util.IHasModel;
 
 import net.minecraft.block.BlockOldLog;
