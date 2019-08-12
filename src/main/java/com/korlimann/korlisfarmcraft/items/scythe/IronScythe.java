@@ -5,9 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,7 +36,7 @@ public class IronScythe extends HoeItem {
 
             @Override
             public float getAttackDamage() {
-                return 2.0f;
+                return 4.0f;
             }
 
             @Override
@@ -67,6 +69,10 @@ public class IronScythe extends HoeItem {
                         BlockState state1 = worldIn.getBlockState(pos1);
                         if (state1.getBlock() == Blocks.WHEAT && (((CropsBlock) Blocks.WHEAT).isMaxAge(state1))) {
                             worldIn.destroyBlock(pos1,true);
+                            if(random.nextInt(100)<19) {
+                                PlayerEntity playerEntity = (PlayerEntity)entityLiving.getEntity();
+                                playerEntity.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
+                            }
                         }
                     }
                 }

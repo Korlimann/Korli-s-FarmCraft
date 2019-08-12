@@ -27,7 +27,7 @@ public class StoneSickle extends HoeItem {
 
             @Override
             public float getAttackDamage() {
-                return 2.0f;
+                return 1.0f;
             }
 
             @Override
@@ -44,7 +44,7 @@ public class StoneSickle extends HoeItem {
             public Ingredient getRepairMaterial() {
                 return null;
             }
-        }, 2.0f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
+        }, 2.4f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
         setRegistryName("stone_sickle");
     }
 
@@ -57,6 +57,9 @@ public class StoneSickle extends HoeItem {
         if(blockState.getBlock() == Blocks.WHEAT && ((CropsBlock)Blocks.WHEAT).isMaxAge(blockState)) {
             player.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
             world.setBlockState(pos,((CropsBlock)Blocks.WHEAT).withAge(0));
+            if(random.nextInt(100)<19) {
+                player.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
+            }
         }
         return ActionResultType.SUCCESS;
     }

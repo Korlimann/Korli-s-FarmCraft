@@ -2,7 +2,8 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "korlisfarmcraft:item/scythe_handle",
-		"1": "korlisfarmcraft:item/scythe_diamond"
+		"1": "korlisfarmcraft:item/scythe_diamond",
+		"2": "korlisfarmcraft:item/diamond_scythe_gui"
 	},
 	"elements": [
 		{
