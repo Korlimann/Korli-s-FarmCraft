@@ -1,6 +1,7 @@
 package com.korlimann.korlisfarmcraft;
 
 
+import com.korlimann.korlisfarmcraft.blocks.GamingChair;
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
 import com.korlimann.korlisfarmcraft.items.Sickle;
@@ -16,6 +17,7 @@ import com.korlimann.korlisfarmcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -50,6 +52,7 @@ public class Main {
         proxy.getClientWorld();
         setup.init();
         oreGeneration.setupOreGeneration();
+        OBJLoader.INSTANCE.addDomain("korlisfarmcraft");
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -59,12 +62,13 @@ public class Main {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
+            event.getRegistry().register(new GamingChair());
         }
 
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
-          
+            event.getRegistry().register(new BlockItem(ModBlocks.GAMING_CHAIR, properties).setRegistryName("gaming_chair"));
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new Salt());
