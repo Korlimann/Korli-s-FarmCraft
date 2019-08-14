@@ -1,10 +1,15 @@
 package com.korlimann.korlisfarmcraft.items.sickle;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ActionResultType;
@@ -12,6 +17,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class DiamondSickle extends HoeItem {
+
+    private final float attackDamage;
+    private final float attackSpeed;
 
     public DiamondSickle() {
         super(new IItemTier() {
@@ -46,6 +54,8 @@ public class DiamondSickle extends HoeItem {
             }
         }, 1.6f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
         setRegistryName("diamond_sickle");
+        this.attackSpeed = -2.4f;
+        this.attackDamage = 2.0f;
     }
 
     @Override
@@ -62,5 +72,14 @@ public class DiamondSickle extends HoeItem {
             }
         }
         return ActionResultType.SUCCESS;
+    }
+
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        if (equipmentSlot == EquipmentSlotType.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
+        }
+        return multimap;
     }
 }

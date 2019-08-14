@@ -1,11 +1,16 @@
 package com.korlimann.korlisfarmcraft.items.scythe;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
@@ -15,6 +20,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class StoneScythe extends HoeItem {
+
+    private final float attackDamage;
+    private final float attackSpeed;
 
     private static final int minX = -1;
     private static final int maxX = 1;
@@ -55,6 +63,8 @@ public class StoneScythe extends HoeItem {
             }
         }, 2.5f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
         setRegistryName("stone_scythe");
+        this.attackSpeed = -1.5f;
+        this.attackDamage = 1.0f;
     }
 
     @Override
@@ -79,5 +89,14 @@ public class StoneScythe extends HoeItem {
             }
         }
         return false;
+    }
+
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+        if (equipmentSlot == EquipmentSlotType.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
+        }
+        return multimap;
     }
 }
