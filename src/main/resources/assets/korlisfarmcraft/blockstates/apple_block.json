@@ -1,16 +1,16 @@
 {
     "variants": {
         "age=0": [
-            { "model": "korlisfarmcraft:apple/apple_1" }
+            { "model": "korlisfarmcraft:block/apple/apple_1" }
         ],
         "age=1": [
-            { "model": "korlisfarmcraft:apple/apple_2" }
+            { "model": "korlisfarmcraft:block/apple/apple_2" }
         ],
         "age=2": [
-            { "model": "korlisfarmcraft:apple/apple_3" }
+            { "model": "korlisfarmcraft:block/apple/apple_3" }
         ],
         "age=3": [
-            { "model": "korlisfarmcraft:apple/apple_4" }
+            { "model": "korlisfarmcraft:block/apple/apple_4" }
         ]
     }
 }

@@ -10,23 +10,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class BlockBaseFruit extends Block implements IGrowable {
 
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
-    public  AxisAlignedBB AABB;
-    public Item fruit;
-    public boolean canGrow;
-    public boolean canUseBonemeal;
+    private static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
+    private static VoxelShape SHAPE = null;
+    private AxisAlignedBB AABB;
+    private Item fruit;
+    private boolean canGrow;
+    private boolean canUseBonemeal;
     private String type;
-    //private boolean CreativeTab;
-
 
     public BlockBaseFruit(String name, double x1, double y1, double z1, double x2, double y2, double z2, Item fruit, boolean grow, boolean bonemeal) {
         super(Properties.create(Material.LEAVES)
@@ -39,20 +41,15 @@ public class BlockBaseFruit extends Block implements IGrowable {
         this.canUseBonemeal = bonemeal;
         this.type=name;
         AABB = new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
-        //this.setDefaultState(this.stateContainer.getBaseState().with(AGE, 0));
+        SHAPE = Block.makeCuboidShape(x1, y1, z1, x2, y2, z2);
         this.setDefaultState(this.stateContainer.getBaseState().with(this.getAgeProperty(), 0));
         setRegistryName(name);
-        //this.CreativeTab = CreativeTab;
     }
 
     public BlockBaseFruit(String name, Material materialIn, Item fruit)
     {
         this(name,0.25D, 0.25D, 0.25D, 0.75D, 1D, 0.75D, fruit, true, true);
     }
-    /*@Override
-    public void registerModels() {
-        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
-    }*/
 
     @Override
     public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
@@ -68,12 +65,18 @@ public class BlockBaseFruit extends Block implements IGrowable {
         worldIn.setBlockState(pos, state.with(AGE, state.get(AGE) + 1), 2);
     }
 
-    /*public boolean isFullCube(BlockState state) {
-        return false;
-    }*/
-
     public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
         return getAABB();
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return state.getShape(worldIn, pos);
     }
 
     public AxisAlignedBB getAABB() {
@@ -102,24 +105,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
         }
     }
 
-    /*public void tick(World worldIn, BlockPos pos, BlockState state, Random rand)
-    {
-        if (!this.canBlockStay(worldIn, pos, state))
-        {
-            this.dropBlock(worldIn, pos, state);
-        }
-        else
-        {
-            int i = ((Integer)state.getValue(AGE)).intValue();
-
-            if (i < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, rand.nextInt(5) == 0))
-            {
-                worldIn.setBlockState(pos, state.withProperty(AGE, Integer.valueOf(i + 1)), 2);
-                net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
-            }
-        }
-    }*/
-
     public boolean canBlockStay(World worldIn, BlockPos pos, BlockState state)
     {
         BlockState state1 = worldIn.getBlockState(pos.up());
@@ -132,6 +117,21 @@ public class BlockBaseFruit extends Block implements IGrowable {
         {
             this.dropBlock(worldIn, pos, state);
         }
+    }
+
+    @Override
+    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return false;
+    }
+
+    @Override
+    public boolean isSolid(BlockState state) {
+        return false;
+    }
+
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
 
     private void dropBlock(World worldIn, BlockPos pos, BlockState state)
@@ -154,53 +154,20 @@ public class BlockBaseFruit extends Block implements IGrowable {
         return new ItemStack(fruit);
     }
 
-    /**
-     * Convert the given metadata into a BlockState for this Block
-     */
-    /*public IBlockState getStateFromMeta(int meta)
-    {
-        return this.getDefaultState().withProperty(AGE, Integer.valueOf((meta & 15)));
-    }*/
-
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    /*public int getMetaFromState(IBlockState state)
-    {
-        int i = 0;
-        i = i | ((Integer)state.getValue(AGE)).intValue();
-        return i;
-    }*/
-
-    /*protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {AGE});
-    }*/
-
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks for render
-     */
-    /*public boolean isOpaqueCube(BlockState state)
-    {
-        return false;
-    }*/
-
     /*@Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return AABB;
     }*/
 
-    //@Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn,
-                                    Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if(state.get(AGE)==3) {
-            playerIn.addItemStackToInventory(new ItemStack(fruit));
+            player.addItemStackToInventory(new ItemStack(fruit));
             worldIn.setBlockState(pos, state.with(AGE, 0), 2);
             return true;
         }
         return false;
-
     }
 
     //Only Call When a Value for this already exists in BlockBaseFruit.EnumType

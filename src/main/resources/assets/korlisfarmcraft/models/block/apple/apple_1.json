@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
 	"textures": {
-		"0": "korlisfarmcraft:blocks/fruits/fruit_leaves",
-		"1": "korlisfarmcraft:blocks/apple/apple_1",
-		"particle": "korlisfarmcraft:blocks/fruits/fruit_leaves"
+		"0": "korlisfarmcraft:block/fruits/fruit_leaves",
+		"1": "korlisfarmcraft:block/apple/apple_1",
+		"particle": "korlisfarmcraft:block/fruits/fruit_leaves"
 	},
 	"elements": [
 		{
