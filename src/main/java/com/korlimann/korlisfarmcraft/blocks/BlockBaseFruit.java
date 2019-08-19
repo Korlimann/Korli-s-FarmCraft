@@ -24,7 +24,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
 
     private static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
     private static VoxelShape SHAPE = null;
-    private AxisAlignedBB AABB;
     private Item fruit;
     private boolean canGrow;
     private boolean canUseBonemeal;
@@ -41,7 +40,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
         this.canGrow = grow;
         this.canUseBonemeal = bonemeal;
         this.type=name;
-        AABB = new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
         SHAPE = Block.makeCuboidShape(x1, y1, z1, x2, y2, z2);
         this.setDefaultState(this.stateContainer.getBaseState().with(this.getAgeProperty(), 0));
         setRegistryName(name);
@@ -70,11 +68,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
-
-    /*@Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return state.getShape(worldIn, pos);
-    }*/
 
     public IntegerProperty getAgeProperty() {
         return AGE;
@@ -112,11 +105,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
         }
     }
 
-    /*@Override
-    public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return false;
-    }
-    */
     @Override
     public boolean isSolid(BlockState state) {
         return false;
@@ -126,26 +114,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
-
-    /*@Override
-    public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, world, BlockPos pos, IBlockState state, int fortune)
-    {
-        if(((Integer)state.getValue(AGE)).intValue()==3)
-        {
-            drops.add(new ItemStack(fruit));
-        }
-    }*/
-
-    public ItemStack getItem(World worldIn, BlockPos pos, BlockState state)
-    {
-        return new ItemStack(fruit);
-    }
-
-    /*@Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
-        return AABB;
-    }*/
 
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
