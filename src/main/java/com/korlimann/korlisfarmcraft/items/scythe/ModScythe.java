@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class ModScythe extends HoeItem {
+public class ModScythe extends TieredItem {
     private final float attackDamage;
     private final float attackSpeed;
 
@@ -59,7 +59,7 @@ public class ModScythe extends HoeItem {
             public Ingredient getRepairMaterial() {
                 return repairMaterial;
             }
-        }, attackSpeed*-1, new Item.Properties().maxStackSize(1).group(ModSetup.itemGroup));
+        },  new Item.Properties().maxStackSize(1).group(ModSetup.itemGroup));
         setRegistryName(registryName);
         this.attackSpeed = attackSpeed;
         this.attackDamage = attackDamage-1f;
@@ -88,6 +88,9 @@ public class ModScythe extends HoeItem {
                         }
                     }
                 }
+                stack.damageItem(1,entityLiving,(p_220042_0_) -> {
+                    p_220042_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+                });
             }
         }
         return false;
@@ -100,5 +103,11 @@ public class ModScythe extends HoeItem {
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
         }
         return multimap;
+    }
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.damageItem(1, attacker, (p_220042_0_) -> {
+            p_220042_0_.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+        });
+        return true;
     }
 }
