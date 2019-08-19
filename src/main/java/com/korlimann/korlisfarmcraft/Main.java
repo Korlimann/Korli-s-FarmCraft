@@ -1,6 +1,7 @@
 package com.korlimann.korlisfarmcraft;
 
 
+import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruit;
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
 import com.korlimann.korlisfarmcraft.items.Sickle;
@@ -16,6 +17,7 @@ import com.korlimann.korlisfarmcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -59,6 +61,7 @@ public class Main {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
+            event.getRegistry().register(new BlockBaseFruit("apple_block", 0.390625D, 0.75D, 0.390625D, 0.609375D, 1D, 0.609375D, Items.APPLE, true, true));
         }
 
         @SubscribeEvent
@@ -67,6 +70,7 @@ public class Main {
           
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
+            event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK, properties).setRegistryName("apple_block"));
             event.getRegistry().register(new Salt());
         }
     }
