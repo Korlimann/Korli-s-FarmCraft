@@ -1,10 +1,9 @@
 package com.korlimann.korlisfarmcraft;
 
 
-import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
+import com.korlimann.korlisfarmcraft.blocks.*;
 
 import com.korlimann.korlisfarmcraft.items.Sickle;
-import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.config.Config;
 import com.korlimann.korlisfarmcraft.config.OreGenConfig;
 import com.korlimann.korlisfarmcraft.items.Salt;
@@ -59,6 +58,14 @@ public class Main {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
+            event.getRegistry().register(new BarnWall());
+            event.getRegistry().register(new BarnCorner());
+            event.getRegistry().register(new Roof90Left());
+            event.getRegistry().register(new Roof90Middle());
+            event.getRegistry().register(new Roof90Right());
+            event.getRegistry().register(new RoofFlatLeft());
+            event.getRegistry().register(new RoofFlatMiddle());
+            event.getRegistry().register(new RoofFlatRight());
         }
 
         @SubscribeEvent
@@ -67,6 +74,14 @@ public class Main {
           
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
+            event.getRegistry().register(new BlockItem(ModBlocks.BARN_WALL, properties).setRegistryName("barn_wall"));
+            event.getRegistry().register(new BlockItem(ModBlocks.BARN_CORNER, properties).setRegistryName("barn_corner"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_90_LEFT, properties).setRegistryName("roof_90_left"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_90_MIDDLE, properties).setRegistryName("roof_90_middle"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_90_RIGHT, properties).setRegistryName("roof_90_right"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_FLAT_LEFT, properties).setRegistryName("roof_flat_left"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_FLAT_MIDDLE, properties).setRegistryName("roof_flat_middle"));
+            event.getRegistry().register(new BlockItem(ModBlocks.ROOF_FLAT_RIGHT, properties).setRegistryName("roof_flat_right"));
             event.getRegistry().register(new Salt());
         }
     }

@@ -16,7 +16,7 @@ public class SaltOre extends Block {
     public SaltOre() {
         super(Properties.create(Material.ROCK)
                     .sound(SoundType.STONE)
-                    .hardnessAndResistance(2.0f)
+                    .hardnessAndResistance(1.5f)
                     .harvestLevel(1)
         );
         setRegistryName("salt_ore");
