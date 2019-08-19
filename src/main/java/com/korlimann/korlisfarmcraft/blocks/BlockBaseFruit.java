@@ -65,23 +65,15 @@ public class BlockBaseFruit extends Block implements IGrowable {
         worldIn.setBlockState(pos, state.with(AGE, state.get(AGE) + 1), 2);
     }
 
-    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
-        return getAABB();
-    }
-
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 
-    @Override
+    /*@Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return state.getShape(worldIn, pos);
-    }
-
-    public AxisAlignedBB getAABB() {
-        return AABB;
-    }
+    }*/
 
     public IntegerProperty getAgeProperty() {
         return AGE;
@@ -89,33 +81,34 @@ public class BlockBaseFruit extends Block implements IGrowable {
 
     @Override
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
-        if (!this.canBlockStay(worldIn, pos, state))
+        if (!worldIn.isAreaLoaded(pos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
+        if (this.canBlockStay(worldIn, pos, state))
         {
-            this.dropBlock(worldIn, pos, state);
+            worldIn.destroyBlock(pos, false);
         }
         else
         {
             int i = state.get(AGE);
-
+            grow(worldIn, random, pos, state);
             if (i < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0))
             {
-                worldIn.setBlockState(pos, state.with(AGE, i + 1), 2);
+                grow(worldIn, random, pos, state);
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
         }
     }
 
-    public boolean canBlockStay(World worldIn, BlockPos pos, BlockState state)
+    private boolean canBlockStay(World worldIn, BlockPos pos, BlockState state)
     {
         BlockState state1 = worldIn.getBlockState(pos.up());
-        return state1.getBlock() == Blocks.OAK_LEAVES;
+        return state1.getBlock() != Blocks.OAK_LEAVES;
     }
 
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
-    {
-        if (!this.canBlockStay(worldIn, pos, state))
+    @Override
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+        if (this.canBlockStay(worldIn, pos, state))
         {
-            this.dropBlock(worldIn, pos, state);
+            worldIn.destroyBlock(pos, false);
         }
     }
 
@@ -132,12 +125,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
-    }
-
-    private void dropBlock(World worldIn, BlockPos pos, BlockState state)
-    {
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
-        this.dropBlock(worldIn, pos, state);
     }
 
     /*@Override
