@@ -112,11 +112,11 @@ public class BlockBaseFruit extends Block implements IGrowable {
         }
     }
 
-    @Override
+    /*@Override
     public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return false;
     }
-
+    */
     @Override
     public boolean isSolid(BlockState state) {
         return false;

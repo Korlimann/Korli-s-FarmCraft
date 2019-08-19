@@ -61,7 +61,7 @@ public class Main {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
-            event.getRegistry().register(new BlockBaseFruit("apple_block", 0.390625D, 0.75D, 0.390625D, 0.609375D, 1D, 0.609375D, Items.APPLE, true, true));
+            event.getRegistry().register(new BlockBaseFruit("apple_block", 6.25, 12, 6.25, 9.75, 16D, 9.75D, Items.APPLE, true, true));
         }
 
         @SubscribeEvent
