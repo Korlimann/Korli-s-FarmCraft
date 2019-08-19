@@ -35,6 +35,7 @@ public class BlockBaseFruit extends Block implements IGrowable {
                 .sound(SoundType.PLANT)
                 .hardnessAndResistance(1.0f)
                 .harvestLevel(1)
+                .tickRandomly()
         );
         this.fruit = fruit;
         this.canGrow = grow;
@@ -89,7 +90,6 @@ public class BlockBaseFruit extends Block implements IGrowable {
         else
         {
             int i = state.get(AGE);
-            grow(worldIn, random, pos, state);
             if (i < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0))
             {
                 grow(worldIn, random, pos, state);
