@@ -11,60 +11,62 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class IronScythe extends HoeItem {
+import java.util.Random;
 
+public class ModScythe extends HoeItem {
     private final float attackDamage;
     private final float attackSpeed;
 
-    private static final int minX = -1;
-    private static final int maxX = 1;
+    private final int minX;
+    private final int maxX;
 
-    private static final int minZ = -1;
-    private static final int maxZ = 1;
+    private final int minZ;
+    private final int maxZ;
 
-    public IronScythe() {
+    private static final Random rnd = new Random();
+
+    public ModScythe(int uses, float efficiency, float attackDamage, int harvestLevel, int enchantability, Ingredient repairMaterial,float attackSpeed, String registryName,int range) {
         super(new IItemTier() {
             @Override
             public int getMaxUses() {
-                return 256;
+                return uses;
             }
 
             @Override
-            public float getEfficiency() {
-                return 1.0f;
-            }
+            public float getEfficiency() { return efficiency; }
 
             @Override
             public float getAttackDamage() {
-                return 4.0f;
+                return attackDamage;
             }
 
             @Override
             public int getHarvestLevel() {
-                return 4;
+                return harvestLevel;
             }
 
             @Override
             public int getEnchantability() {
-                return 0;
+                return enchantability;
             }
 
             @Override
             public Ingredient getRepairMaterial() {
-                return null;
+                return repairMaterial;
             }
-        }, 2.0f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
-        setRegistryName("iron_scythe");
-        this.attackSpeed = -2f;
-        this.attackDamage = 3.0f;
+        }, attackSpeed*-1, new Item.Properties().maxStackSize(1).group(ModSetup.itemGroup));
+        setRegistryName(registryName);
+        this.attackSpeed = attackSpeed;
+        this.attackDamage = attackDamage-1f;
+        this.minX = range/2*-1;
+        this.maxX = range/2;
+        this.minZ = range/2*-1;
+        this.maxZ = range/2;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class IronScythe extends HoeItem {
                         BlockState state1 = worldIn.getBlockState(pos1);
                         if (state1.getBlock() == Blocks.WHEAT && (((CropsBlock) Blocks.WHEAT).isMaxAge(state1))) {
                             worldIn.destroyBlock(pos1,true);
-                            if(random.nextInt(100)<19) {
+                            if(random.nextInt(100)<29) {
                                 PlayerEntity playerEntity = (PlayerEntity)entityLiving.getEntity();
                                 playerEntity.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
                             }

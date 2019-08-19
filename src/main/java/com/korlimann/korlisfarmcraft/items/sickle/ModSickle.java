@@ -16,46 +16,45 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class IronSickle extends HoeItem {
-
+public class ModSickle extends HoeItem {
     private final float attackDamage;
     private final float attackSpeed;
 
-    public IronSickle() {
+    public ModSickle(int uses, float efficiency, float attackDamage, int harvestLevel, int enchantability, Ingredient repairMaterial,float attackSpeed, String registryName) {
         super(new IItemTier() {
             @Override
             public int getMaxUses() {
-                return 256;
+                return uses;
             }
 
             @Override
             public float getEfficiency() {
-                return 1.0f;
+                return efficiency;
             }
 
             @Override
             public float getAttackDamage() {
-                return 2.0f;
+                return attackDamage;
             }
 
             @Override
             public int getHarvestLevel() {
-                return 4;
+                return harvestLevel;
             }
 
             @Override
             public int getEnchantability() {
-                return 0;
+                return enchantability;
             }
 
             @Override
             public Ingredient getRepairMaterial() {
-                return null;
+                return repairMaterial;
             }
-        }, 1.6f, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
-        setRegistryName("iron_sickle");
-        this.attackSpeed = -2.4f;
-        this.attackDamage = 1.0f;
+        }, attackSpeed*-1, new Properties().maxStackSize(1).group(ModSetup.itemGroup));
+        setRegistryName(registryName);
+        this.attackSpeed = attackSpeed;
+        this.attackDamage = attackDamage-1f;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class IronSickle extends HoeItem {
         if(blockState.getBlock() == Blocks.WHEAT && ((CropsBlock)Blocks.WHEAT).isMaxAge(blockState)) {
             player.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
             world.setBlockState(pos,((CropsBlock)Blocks.WHEAT).withAge(0));
-            if(random.nextInt(100)<39) {
+            if(random.nextInt(100)<59) {
                 player.inventory.addItemStackToInventory(new ItemStack(Items.WHEAT,1));
             }
         }
