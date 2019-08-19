@@ -17,11 +17,13 @@ import com.korlimann.korlisfarmcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -29,8 +31,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("korlisfarmcraft")
+@Mod(Main.MODID)
 public class Main {
+
+    public static final String MODID = "korlisfarmcraft";
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static OreGeneration oreGeneration = new OreGeneration();
@@ -43,16 +47,22 @@ public class Main {
     public Main() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
         Config.loadConfig(Config.CLIENT, FMLPaths.CONFIGDIR.get().resolve("tutorialmod-client.toml").toString());
         Config.loadConfig(Config.SERVER, FMLPaths.CONFIGDIR.get().resolve("tutorialmod-server.toml").toString());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+
         proxy.init();
         proxy.getClientWorld();
         setup.init();
         oreGeneration.setupOreGeneration();
-        OBJLoader.INSTANCE.addDomain("korlisfarmcraft");
+    }
+
+    private void setupClient(final FMLClientSetupEvent event)
+    {
+        OBJLoader.INSTANCE.addDomain(MODID);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -72,6 +82,13 @@ public class Main {
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new Salt());
+        }
+
+        @SubscribeEvent
+        public static void onModelRegistry(ModelRegistryEvent event)
+        {
+            OBJLoader.INSTANCE.addDomain(MODID);
+
         }
     }
 }
