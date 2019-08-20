@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 public class BlockBaseFruit extends Block implements IGrowable {
 
-    private static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_0_3;
     private static VoxelShape SHAPE = null;
     private Item fruit;
     private boolean canGrow;
