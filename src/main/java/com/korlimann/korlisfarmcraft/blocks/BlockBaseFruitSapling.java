@@ -2,6 +2,7 @@ package com.korlimann.korlisfarmcraft.blocks;
 
 import java.util.Random;
 
+import com.korlimann.korlisfarmcraft.world.FruittreeGeneration;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.IntegerProperty;
@@ -13,6 +14,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
 
@@ -52,12 +55,12 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
     {
         //if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
 
-        Feature worldGen;
+        Feature worldGen = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, fruit);
         if(fruit==null)
         {
             //worldgenerator = new WorldGenTrees(true, 5, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), leaves.getDefaultState().withProperty(BlockBaseFruitLeaves.AGE, rand.nextInt(1)), false);
         }else
-            worldGen = new WorldGenFruitTree(true, 5, fruit);
+            worldGen = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, fruit);
 
         int i = 0;
         int j = 0;
@@ -77,7 +80,7 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
             worldIn.setBlockState(pos, iblockstate2, 4);
         }
 
-        if (!worldgenerator.generate(worldIn, rand, pos.add(i, 0, j)))
+        if (!worldGen.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos, IFeatureConfig.NO_FEATURE_CONFIG))
         {
             if (flag)
             {

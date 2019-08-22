@@ -128,17 +128,17 @@ public class BlockBaseFruit extends Block implements IGrowable {
     //Only Call When a Value for this already exists in BlockBaseFruit.EnumType
     //Automatically Creates Sapling that creates a FruitTree
     //Only Call once for each Fruit
-    /*public BlockFruitSapling createFruitTreeAndSapling()
+    public BlockBaseFruitSapling createFruitTreeAndSapling()
     {
-        BlockFruitSapling ret = new BlockFruitSapling(this.getTypeName()+"_sapling",this,true);
+        BlockBaseFruitSapling ret = new BlockBaseFruitSapling(this.getTypeName()+"_sapling",this);
 
         return ret;
-    }*/
+    }
 
-    /*public String getTypeName()
+    private String getTypeName()
     {
         return type;
-    }*/
+    }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

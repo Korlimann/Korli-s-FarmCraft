@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.World;
@@ -79,10 +80,11 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
                     {
                         if (j >= 0 && j < worldIn.getMaxHeight())
                         {
-                            if (!this.isReplaceable(worldIn,blockpos$mutableblockpos.setPos(l, j, i1)))
+                            /*if (this.func_214584_a(worldIn, blockpos$mutableblockpos.setPos(l, j, i1)))
                             {
                                 flag = false;
-                            }
+                            }*/
+
                         }
                         else
                         {
@@ -104,8 +106,7 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
 
 
                 //BlockState state = worldIn.getBlockState(position.down());
-                if ()
-                if (state.getBlock().canSustainPlant(state, worldIn, position.down(), net.minecraft.util.Direction.UP, (net.minecraft.block.SaplingBlock)Blocks.OAK_SAPLING) && position.getY() < worldIn.getMaxHeight() - i - 1)
+                if (worldIn.hasBlockState(position, state -> state.canSustainPlant((net.minecraft.world.IBlockReader)worldIn, position, Direction.UP, (net.minecraft.block.SaplingBlock)Blocks.OAK_SAPLING))  && position.getY() < worldIn.getMaxHeight() - i - 1)
                 {
                     //state.getBlock().onPlantGrow(state, worldIn, position.down(), position);
 

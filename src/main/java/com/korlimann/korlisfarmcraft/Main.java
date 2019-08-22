@@ -13,11 +13,15 @@ import com.korlimann.korlisfarmcraft.setup.ClientProxy;
 import com.korlimann.korlisfarmcraft.setup.IProxy;
 import com.korlimann.korlisfarmcraft.setup.ModSetup;
 import com.korlimann.korlisfarmcraft.setup.ServerProxy;
+import com.korlimann.korlisfarmcraft.world.FruittreeGeneration;
 import com.korlimann.korlisfarmcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -34,6 +38,7 @@ public class Main {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static OreGeneration oreGeneration = new OreGeneration();
+    public static final Feature<NoFeatureConfig> apple_tree = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, ModBlocks.APPLE_BLOCK);
     public static OreGenConfig oreGenConfig = new OreGenConfig();
     public static ModSetup setup = new ModSetup();
 
