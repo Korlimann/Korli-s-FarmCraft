@@ -56,10 +56,10 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
     {
         //if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
 
-        Feature worldGen = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, fruit);
+        Feature worldGen;
         if(fruit==null)
         {
-            //worldgenerator = new WorldGenTrees(true, 5, Blocks.LOG.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.OAK), leaves.getDefaultState().withProperty(BlockBaseFruitLeaves.AGE, rand.nextInt(1)), false);
+            return;
         }else
             worldGen = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, fruit);
 
@@ -81,7 +81,7 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
             worldIn.setBlockState(pos, iblockstate2, 4);
         }
 
-        if (!worldGen.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos, IFeatureConfig.NO_FEATURE_CONFIG))
+            if (!worldGen.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos, IFeatureConfig.NO_FEATURE_CONFIG))
         {
             if (flag)
             {
