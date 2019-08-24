@@ -7,6 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -16,11 +17,9 @@ import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
 
@@ -30,17 +29,20 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
     private final boolean vinesGrow;
     private final BlockState trunk;
     private final BlockState leaf;
-    private ArrayList<BlockPos> fruitPlaces = new ArrayList<BlockPos>();
 
-    private final Block fruit;
+    private final BlockState fruit;
 
-    public FruittreeGeneration(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, boolean vinesGrowIn, Block fruit) {
+    private static final Map<BlockBaseFruit,FruittreeGeneration> featureLookup = new HashMap<>();
+
+    public FruittreeGeneration(String name,Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, boolean vinesGrowIn, BlockBaseFruit fruit) {
         super(configFactoryIn, doBlockNotifyOnPlace);
         this.minTreeHeight = minTreeHeightIn;
         this.trunk = DEFAULT_TRUNK;
         this.leaf = DEFAULT_LEAF;
         this.vinesGrow = vinesGrowIn;
-        this.fruit = fruit;
+        this.fruit = fruit.getDefaultState();
+        setRegistryName(name);
+        featureLookup.put(fruit,this);
     }
 
     @Override
@@ -80,6 +82,7 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
                 int j2 = 3;
                 int k2 = 0;
 
+                //leaves
                 for(int l2 = position.getY() - 3 + i; l2 <= position.getY() + i; ++l2) {
                     int l3 = l2 - (position.getY() + i);
                     int j4 = 1 - l3 / 2;
@@ -98,13 +101,38 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
                         }
                     }
                 }
+                //trunks
                 for(int i3 = 0; i3 < i; ++i3) {
                     if (isAirOrLeaves(worldIn, position.up(i3)) || func_214576_j(worldIn, position.up(i3))) {
                         this.setLogState(changedBlocks, worldIn, position.up(i3), this.trunk, p_208519_5_);
                     }
                 }
 
+                BlockPos[] posFruit = new BlockPos[2+rand.nextInt(3)];
 
+                int fruitY = position.getY()-4+i;
+
+                int crownY = (fruitY+1) - (position.getY() + i);
+                int crownXZRatio = 1 - crownY / 2;
+
+                int minX = position.getX()-crownXZRatio;
+                int maxX = position.getX()+crownXZRatio;
+
+                int minZ = position.getZ()-crownXZRatio;
+                int maxZ = position.getZ()+crownXZRatio;
+
+                for(int ind = 0;ind<posFruit.length;ind++)
+                {
+                    BlockPos blockPos;
+                    do {
+                        blockPos = new BlockPos(minX + (rand.nextInt((maxX + 1) - minX)), fruitY, minZ + (rand.nextInt((maxZ + 1) - minZ)));
+                    }while (!isLeaves(worldIn,blockPos.up())&&!isAir(worldIn,blockPos)&&containsPos(posFruit,blockPos));
+                    posFruit[ind] = blockPos;
+                }
+                for(int ind = 0;ind<posFruit.length;ind++)
+                {
+                    this.setLogState(changedBlocks,worldIn,posFruit[ind],this.fruit,p_208519_5_);
+                }
 
 
                 return true;
@@ -116,11 +144,27 @@ public class FruittreeGeneration extends AbstractTreeFeature<NoFeatureConfig> {
         }
     }
 
+    private boolean containsPos(BlockPos[] arr, BlockPos pos)
+    {
+        if(pos==null)
+            return false;
+        for(int i =0;i<arr.length;i++)
+        {
+            if(pos.equals(arr[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected int getHeight(Random random) {
         return this.minTreeHeight + random.nextInt(3);
     }
 
-    public void placeFruit(IWorldGenerationReader worldIn, int p_181652_2_, BlockPos pos, Set<BlockPos> changedBlocks, MutableBoundingBox p_208519_5_) {
-        this.setLogState(changedBlocks, worldIn, pos, fruit.getDefaultState().with(BlockBaseFruit.AGE, p_181652_2_), p_208519_5_);
+    public static FruittreeGeneration getGenByFruit(BlockBaseFruit fruit)
+    {
+        return featureLookup.get(fruit);
     }
+
 }

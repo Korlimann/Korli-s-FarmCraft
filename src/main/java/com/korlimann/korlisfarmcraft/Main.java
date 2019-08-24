@@ -39,7 +39,7 @@ public class Main {
 
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static OreGeneration oreGeneration = new OreGeneration();
-    public static final Feature<NoFeatureConfig> apple_tree = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, ModBlocks.APPLE_BLOCK);
+   // public static final Feature<NoFeatureConfig> apple_tree;
     public static OreGenConfig oreGenConfig = new OreGenConfig();
     public static ModSetup setup = new ModSetup();
 
@@ -67,8 +67,9 @@ public class Main {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
-            event.getRegistry().register(new BlockBaseFruit("apple_block", 6.25, 12, 6.25, 9.75, 16D, 9.75D, Items.APPLE, true, true));
-            event.getRegistry().register(ModBlocks.APPLE_BLOCK.createFruitTreeAndSapling());
+            BlockBaseFruit apple = new BlockBaseFruit("apple_block", 6.25, 12, 6.25, 9.75, 16D, 9.75D, Items.APPLE, true, true);
+            event.getRegistry().register(apple);
+            event.getRegistry().register(new BlockBaseFruitSapling("apple_block_sapling",apple));
         }
 
         @SubscribeEvent
@@ -81,5 +82,11 @@ public class Main {
             event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK_SAPLING, properties).setRegistryName("apple_block_sapling"));
             event.getRegistry().register(new Salt());
         }
+        @SubscribeEvent
+        public static void onFeatureRegistry(final RegistryEvent.Register<Feature<?>> event)
+        {
+            event.getRegistry().register(new FruittreeGeneration("feature_fruit_tree_gen_apple",NoFeatureConfig::deserialize, false, 5, false, ModBlocks.APPLE_BLOCK));
+        }
+
     }
 }

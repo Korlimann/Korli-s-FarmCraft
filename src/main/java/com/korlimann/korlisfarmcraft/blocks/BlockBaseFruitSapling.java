@@ -3,6 +3,7 @@ package com.korlimann.korlisfarmcraft.blocks;
 import java.util.Random;
 
 import com.korlimann.korlisfarmcraft.world.FruittreeGeneration;
+import com.korlimann.korlisfarmcraft.world.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.IntegerProperty;
@@ -61,7 +62,7 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
         {
             return;
         }else
-            worldGen = new FruittreeGeneration(NoFeatureConfig::deserialize, false, 5, false, fruit);
+            worldGen = FruittreeGeneration.getGenByFruit(fruit);
 
         int i = 0;
         int j = 0;
