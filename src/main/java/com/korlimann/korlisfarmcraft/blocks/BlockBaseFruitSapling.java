@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -51,7 +52,7 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
         builder.add(STAGE);
     }
 
-    private void generateTree(World worldIn, BlockPos pos, BlockState state, Random rand)
+    private void generateTree(IWorld worldIn, BlockPos pos, BlockState state, Random rand)
     {
         //if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
 
@@ -103,11 +104,10 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
 
     @Override
     public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        return (double)worldIn.rand.nextFloat() < 0.45D;
+        return true;
     }
 
-    @Override
-    public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+    private void grow(IWorld worldIn, Random rand, BlockPos pos, BlockState state) {
         if (state.get(STAGE) == 0)
         {
             worldIn.setBlockState(pos, state.cycle(STAGE), 4);
@@ -118,14 +118,18 @@ public class BlockBaseFruitSapling extends BushBlock implements IGrowable {
         }
     }
 
+    public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        this.grow((IWorld)worldIn, (Random)rand, (BlockPos)pos, (BlockState)state);
+    }
+
     @Override
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
-        if (!worldIn.isRemote) {
-            super.tick(state, worldIn, pos, random);
-
-            if (worldIn.getLight(pos.up()) >= 9 && random.nextInt(7) == 0) {
-                this.grow(worldIn, random, pos, state);
+        super.tick(state, worldIn, pos, random);
+        if (worldIn.isAreaLoaded(pos, 1)) {
+            if (worldIn.getLight(pos.up()) >= 9 && random.nextInt(1) == 0) {
+                this.grow((IWorld)worldIn, (Random)random, (BlockPos)pos, (BlockState)state);
             }
+
         }
     }
 

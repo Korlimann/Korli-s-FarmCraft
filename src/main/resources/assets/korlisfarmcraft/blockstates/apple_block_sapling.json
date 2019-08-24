@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cross"
+    },
+	"variants": {
+		"stage=0": [
+            { "model": "korlisfarmcraft:block/apple_block_sapling" }
+        ],
+        "stage=1": [
+            { "model": "korlisfarmcraft:block/apple_block_sapling" }
+        ]
+	}
+}

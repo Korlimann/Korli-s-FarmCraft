@@ -5,9 +5,10 @@
 
   "_comment": "Blocks",
   "block.korlisfarmcraft.salt_ore": "Salt Ore",
+  "block.korlisfarmcraft.apple_block_sapling": "Apple Sapling",
 
   "_comment": "Items",
-  "item.korlisfarmcraft.sickle": "Sickle"
-   "item.korlisfarmcraft.salt": "Salt"
+  "item.korlisfarmcraft.sickle": "Sickle",
+  "item.korlisfarmcraft.salt": "Salt"
   
 }

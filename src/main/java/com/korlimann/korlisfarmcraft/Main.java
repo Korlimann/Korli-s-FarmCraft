@@ -2,6 +2,7 @@ package com.korlimann.korlisfarmcraft;
 
 
 import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruit;
+import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruitSapling;
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
 import com.korlimann.korlisfarmcraft.items.Sickle;
@@ -67,6 +68,7 @@ public class Main {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new SaltOre());
             event.getRegistry().register(new BlockBaseFruit("apple_block", 6.25, 12, 6.25, 9.75, 16D, 9.75D, Items.APPLE, true, true));
+            event.getRegistry().register(ModBlocks.APPLE_BLOCK.createFruitTreeAndSapling());
         }
 
         @SubscribeEvent
@@ -76,6 +78,7 @@ public class Main {
             event.getRegistry().register(new Sickle());
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK, properties).setRegistryName("apple_block"));
+            event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK_SAPLING, properties).setRegistryName("apple_block_sapling"));
             event.getRegistry().register(new Salt());
         }
     }
