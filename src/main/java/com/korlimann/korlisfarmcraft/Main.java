@@ -5,7 +5,8 @@ import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruit;
 import com.korlimann.korlisfarmcraft.blocks.BlockBaseFruitSapling;
 import com.korlimann.korlisfarmcraft.blocks.ModBlocks;
 
-import com.korlimann.korlisfarmcraft.items.Sickle;
+import com.korlimann.korlisfarmcraft.items.scythe.ModScythe;
+import com.korlimann.korlisfarmcraft.items.sickle.ModSickle;
 import com.korlimann.korlisfarmcraft.blocks.SaltOre;
 import com.korlimann.korlisfarmcraft.config.Config;
 import com.korlimann.korlisfarmcraft.config.OreGenConfig;
@@ -76,7 +77,12 @@ public class Main {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             Item.Properties properties = new Item.Properties().group(setup.itemGroup);
           
-            event.getRegistry().register(new Sickle());
+            event.getRegistry().register(new ModSickle(128,1.0f,1.0f,4,0, null,-1.6f,"stone_sickle"));
+            event.getRegistry().register(new ModScythe(128,1.0f,2.0f,4,0, null,-1.5f,"stone_scythe",3));
+            event.getRegistry().register(new ModSickle(256,1.0f,2.0f,4,0, null,-2.4f,"iron_sickle"));
+            event.getRegistry().register(new ModScythe(256,1.0f,4.0f,4,0, null,-2f,"iron_scythe",3));
+            event.getRegistry().register(new ModSickle(1024,1.0f,3.0f,4,0, null,-2.4f,"diamond_sickle"));
+            event.getRegistry().register(new ModScythe(1024,1.0f,5.0f,4,0, null,-2f,"diamond_scythe",3));
             event.getRegistry().register(new BlockItem(ModBlocks.SALT_ORE, properties).setRegistryName("salt_ore"));
             event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK, properties).setRegistryName("apple_block"));
             event.getRegistry().register(new BlockItem(ModBlocks.APPLE_BLOCK_SAPLING, properties).setRegistryName("apple_block_sapling"));

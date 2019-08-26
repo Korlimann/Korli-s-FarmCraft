@@ -8,7 +8,15 @@
   "block.korlisfarmcraft.apple_block_sapling": "Apple Sapling",
 
   "_comment": "Items",
-  "item.korlisfarmcraft.sickle": "Sickle",
+
+  "item.korlisfarmcraft.stone_sickle": "Stone Sickle",
+  "item.korlisfarmcraft.iron_sickle": "Iron Sickle",
+  "item.korlisfarmcraft.diamond_sickle": "Diamond Sickle",
+  "item.korlisfarmcraft.stone_scythe": "Stone Scythe",
+  "item.korlisfarmcraft.iron_scythe": "Iron Scythe",
+  "item.korlisfarmcraft.diamond_scythe": "Diamond Scythe",
+
+  
   "item.korlisfarmcraft.salt": "Salt"
   
 }
